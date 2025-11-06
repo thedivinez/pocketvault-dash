@@ -14,9 +14,7 @@ type Config struct {
 }
 
 func (c *Config) ReadFromEnv() error {
-	if err := godotenv.Load(); err != nil {
-		return errors.WithStack(err)
-	}
+	godotenv.Load()
 	validate := validator.New(validator.WithRequiredStructEnabled())
 	if err := env.Parse(c); err != nil {
 		return errors.WithStack(err)
