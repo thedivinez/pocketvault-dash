@@ -1,0 +1,336 @@
+package pages
+
+import (
+	"context"
+	"github.com/labstack/echo/v4"
+	"github.com/thedivinez/go-libs/gothex"
+	"github.com/thedivinez/pocketvault.ai/components/dashboard"
+	"github.com/thedivinez/pocketvault.ai/types"
+)
+
+func HandleKYCForm(c echo.Context) error {
+	// if session, authenticated := router.GetAuthSession(c); authenticated {
+	// 	var user types.User
+	// 	json.Unmarshal(session.Values["user"].([]byte), &user)
+	// 	return gothex.Render(c, pages.Home, user)
+	// }
+	// return c.Redirect(http.StatusPermanentRedirect, "/signin")
+	return gothex.Render(c, KYCForm, &types.User{Name: "Divine Zvenyika"})
+}
+
+templ KYCForm(c context.Context, data ...any) {
+	@App(c) {
+		<div class="d-flex flex-wrap">
+			@dashboard.SideBar()
+			<div class="dashboard-wrapper">
+				@dashboard.Navbar(data[0].(*types.User))
+				<div class=" dashboard-container ">
+					<div class="dashboard-inner">
+						<div class="mb-4">
+							<h3>KYC Submission</h3>
+							<p>The system requires you to submit KYC (know your client) information. Your submitted data will be verified by the system\s admin. If all of your information is correct, the admin will approve the KYC data and you'll be able to make withdrawal requests  and transfer money to other users .</p>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="card custom--card">
+									<div class="card-body">
+										<form action="https://prestigewealthinvest.com/user/kyc-submit" method="post" enctype="multipart/form-data">
+											<input type="hidden" name="_token" value="NKTglVxyknUUeRQm9u6fvLbxEFJvFPrMMpSD2fCH" autocomplete="off"/>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="form-label">Name   </label>
+														<input
+															type="text"
+															class="form-control form--control"
+															name="name"
+															value=""
+															required
+														/>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="form-label">E-mail address   </label>
+														<input
+															type="email"
+															class="form-control form--control"
+															name="e-mail_address"
+															value=""
+															required
+														/>
+													</div>
+												</div>
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="form-label">Address   </label>
+														<input
+															type="text"
+															class="form-control form--control"
+															name="address"
+															value=""
+															required
+														/>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="form-label">Zip Code   </label>
+														<input
+															type="text"
+															class="form-control form--control"
+															name="zip_code"
+															value=""
+															required
+														/>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="form-label">Phone number   </label>
+														<input
+															type="text"
+															class="form-control form--control"
+															name="phone_number"
+															value=""
+															required
+														/>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="form-label">Gender   <span class="text--danger">*</span> </label>
+														<div class="d-flex gap-3 flex-wrap">
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="gender[]"
+																	type="checkbox"
+																	value="Male"
+																	id="gender_male"
+																/>
+																<label class="form-check-label" for="gender_male">Male</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="gender[]"
+																	type="checkbox"
+																	value="Female"
+																	id="gender_female"
+																/>
+																<label class="form-check-label" for="gender_female">Female</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="gender[]"
+																	type="checkbox"
+																	value="Institution"
+																	id="gender_institution"
+																/>
+																<label class="form-check-label" for="gender_institution">Institution</label>
+															</div>
+														</div>
+														<div class="checkbox-required-error text--danger"></div>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="form-label">ID Type   <span class="text--danger">*</span> </label>
+														<div class="d-flex gap-3 flex-wrap">
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="id_type"
+																	type="radio"
+																	value="International Passport"
+																	id="id_type_international_passport"
+																/>
+																<label class="form-check-label" for="id_type_international_passport">International Passport</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="id_type"
+																	type="radio"
+																	value="Driving License"
+																	id="id_type_driving_license"
+																/>
+																<label class="form-check-label" for="id_type_driving_license">Driving License</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="id_type"
+																	type="radio"
+																	value="Voter Identity Card"
+																	id="id_type_voter_identity_card"
+																/>
+																<label class="form-check-label" for="id_type_voter_identity_card">Voter Identity Card</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="id_type"
+																	type="radio"
+																	value="National ID Card"
+																	id="id_type_national_id_card"
+																/>
+																<label class="form-check-label" for="id_type_national_id_card">National ID Card</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="id_type"
+																	type="radio"
+																	value="Business License"
+																	id="id_type_business_license"
+																/>
+																<label class="form-check-label" for="id_type_business_license">Business License</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="form-label">Proof of Identity  <span data-bs-toggle="tooltip" data-bs-title="To verify your account and ensure compliance with regulatory standards, please submit a valid Proof of Identity document. This helps us protect your information and keep our platform secure.of birth  The expiry date  All four corners of the document must be visible  Upload must be in PDF, JPEG, or PNG format  No blurry images or black &amp; white scans"><i class="fas fa-info-circle"></i></span> </label>
+														<input
+															type="file"
+															class="form-control form--control file-upload-input"
+															name="proof_of_identity"
+															id="file_proof_of_identity"
+															required
+															accept=" .jpg,  .jpeg,  .png,  .pdf, "
+															data-preview="preview_proof_of_identity"
+														/>
+														<pre class="text--base mt-1">Supported mimes: jpg,jpeg,png,pdf</pre>
+														<!-- Image Preview Container -->
+														<div id="preview_proof_of_identity" class="image-preview-container mt-3" style="display: none;">
+															<div class="position-relative d-inline-block">
+																<img src="/kyc-form" alt="Preview" class="img-thumbnail" style="max-width: 300px; max-height: 300px;"/>
+																<button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 remove-preview" data-target="file_proof_of_identity">
+																	<i class="las la-times"></i>
+																</button>
+															</div>
+															<p class="text-muted mt-2 mb-0"><small class="file-name"></small></p>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="form-label">Proof of Address   <span class="text--danger">*</span> </label>
+														<div class="d-flex gap-3 flex-wrap">
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="proof_of_address"
+																	type="radio"
+																	value="Bank Statement"
+																	id="proof_of_address_bank_statement"
+																/>
+																<label class="form-check-label" for="proof_of_address_bank_statement">Bank Statement</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="proof_of_address"
+																	type="radio"
+																	value="Credit Card Statement"
+																	id="proof_of_address_credit_card_statement"
+																/>
+																<label class="form-check-label" for="proof_of_address_credit_card_statement">Credit Card Statement</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="proof_of_address"
+																	type="radio"
+																	value="Electricity Bill"
+																	id="proof_of_address_electricity_bill"
+																/>
+																<label class="form-check-label" for="proof_of_address_electricity_bill">Electricity Bill</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="proof_of_address"
+																	type="radio"
+																	value="Lease or Tenancy Agreement"
+																	id="proof_of_address_lease_or_tenancy_agreement"
+																/>
+																<label class="form-check-label" for="proof_of_address_lease_or_tenancy_agreement">Lease or Tenancy Agreement</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="proof_of_address"
+																	type="radio"
+																	value="Water BIll"
+																	id="proof_of_address_water_bill"
+																/>
+																<label class="form-check-label" for="proof_of_address_water_bill">Water BIll</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="proof_of_address"
+																	type="radio"
+																	value="Gas Bill"
+																	id="proof_of_address_gas_bill"
+																/>
+																<label class="form-check-label" for="proof_of_address_gas_bill">Gas Bill</label>
+															</div>
+															<div class="form-check">
+																<input
+																	class="form-check-input"
+																	name="proof_of_address"
+																	type="radio"
+																	value="Business License"
+																	id="proof_of_address_business_license"
+																/>
+																<label class="form-check-label" for="proof_of_address_business_license">Business License</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="form-label">Proof of Addres  <span data-bs-toggle="tooltip" data-bs-title="To verify your identity and comply with regulatory requirements, please provide a valid Proof of Address document. This document must clearly show your full name, residential address, and a recent date (within the last 3 months)."><i class="fas fa-info-circle"></i></span> </label>
+														<input
+															type="file"
+															class="form-control form--control file-upload-input"
+															name="proof_of_addres"
+															id="file_proof_of_addres"
+															required
+															accept=" .jpg,  .jpeg,  .png,  .pdf, "
+															data-preview="preview_proof_of_addres"
+														/>
+														<pre class="text--base mt-1">Supported mimes: jpg,jpeg,png,pdf</pre>
+														<!-- Image Preview Container -->
+														<div id="preview_proof_of_addres" class="image-preview-container mt-3" style="display: none;">
+															<div class="position-relative d-inline-block">
+																<img src="/kyc-form" alt="Preview" class="img-thumbnail" style="max-width: 300px; max-height: 300px;"/>
+																<button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 remove-preview" data-target="file_proof_of_addres">
+																	<i class="las la-times"></i>
+																</button>
+															</div>
+															<p class="text-muted mt-2 mb-0"><small class="file-name"></small></p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<button type="submit" class="btn btn--base w-100">Submit</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}

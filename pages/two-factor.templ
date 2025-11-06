@@ -1,0 +1,85 @@
+package pages
+
+import (
+	"context"
+	"github.com/labstack/echo/v4"
+	"github.com/thedivinez/go-libs/gothex"
+	"github.com/thedivinez/pocketvault.ai/components/dashboard"
+	"github.com/thedivinez/pocketvault.ai/types"
+)
+
+func HandleTwoFactor(c echo.Context) error {
+	// if session, authenticated := router.GetAuthSession(c); authenticated {
+	// 	var user types.User
+	// 	json.Unmarshal(session.Values["user"].([]byte), &user)
+	// 	return gothex.Render(c, pages.Home, user)
+	// }
+	// return c.Redirect(http.StatusPermanentRedirect, "/signin")
+	return gothex.Render(c, TwoFactor, &types.User{Name: "Divine Zvenyika"})
+}
+
+templ TwoFactor(c context.Context, data ...any) {
+	@App(c) {
+		<div class="d-flex flex-wrap">
+			@dashboard.SideBar()
+			<div class="dashboard-wrapper">
+				@dashboard.Navbar(data[0].(*types.User))
+				<div class=" dashboard-container ">
+					<div class="dashboard-inner">
+						<div class="row justify-content-center">
+							<div class=" col-md-12 ">
+								<div class="mb-4">
+									<h3>Two Factor Authentication</h3>
+									<p>Your account will be more secure if you use this feature. A 6-digit verification code from your Android Google Authenticator app must be entered whenever someone tries to log in to the account. So that the system could verify that, this is you. Additionally, the payout procedure will require this verification.</p>
+								</div>
+								<div class="row gy-4">
+									<div class="col-md-6">
+										<div class="card custom--card">
+											<div class="card-header">
+												<h5 class="mb-0">Add Your Account</h5>
+											</div>
+											<div class="card-body">
+												<h6 class="mb-3">
+													Use the QR code or setup key on your Google Authenticator app to add your account.                                 
+												</h6>
+												<div class="form-group mb-3 mx-auto text-center">
+													<img class="mx-auto" src="https/apiqrservercom/v1/create-qr-code/6619218.png"/>
+												</div>
+												<div class="form-group mb-3">
+													<label class="form-label">Setup Key</label>
+													<div class="copy-link">
+														<input type="text" class="copyURL" value="VDB7EMUWNT7WFT57" readonly/>
+														<span class="copyBoard" id="copyBoard"><i class="las la-copy"></i> <strong class="copyText">Copy</strong></span>
+													</div>
+												</div>
+												<label><i class="fa fa-info-circle"></i> Help</label>
+												<p>Google Authenticator is a multifactor app for mobile devices. It generates timed codes used during the 2-step verification process. To use Google Authenticator, install the Google Authenticator application on your mobile device. <a class="text--base" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en" target="_blank">Download</a></p>
+											</div>
+										</div>
+									</div>
+									<div class=" col-md-6 ">
+										<div class="card custom--card">
+											<div class="card-header">
+												<h5 class="mb-0">Enable 2FA Security</h5>
+											</div>
+											<form action="https://prestigewealthinvest.com/user/twofactor/enable" method="POST">
+												<div class="card-body">
+													<input type="hidden" name="_token" value="NKTglVxyknUUeRQm9u6fvLbxEFJvFPrMMpSD2fCH" autocomplete="off"/> <input type="hidden" name="key" value="VDB7EMUWNT7WFT57"/>
+													<div class="form-group mb-3">
+														<label class="form-label">Google Authenticatior OTP</label>
+														<input type="text" class="form-control form--control" name="code" required/>
+													</div>
+													<button type="submit" class="btn btn--base w-100">Submit</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}

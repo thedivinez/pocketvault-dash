@@ -1,0 +1,106 @@
+package pages
+
+import (
+	"context"
+	"github.com/labstack/echo/v4"
+	"github.com/thedivinez/go-libs/gothex"
+	"github.com/thedivinez/pocketvault.ai/components/dashboard"
+	"github.com/thedivinez/pocketvault.ai/types"
+)
+
+func HandleInvestmentStatistics(c echo.Context) error {
+	// if session, authenticated := router.GetAuthSession(c); authenticated {
+	// 	var user types.User
+	// 	json.Unmarshal(session.Values["user"].([]byte), &user)
+	// 	return gothex.Render(c, pages.Home, user)
+	// }
+	// return c.Redirect(http.StatusPermanentRedirect, "/signin")
+	return gothex.Render(c, InvestmentStatistics, &types.User{Name: "Divine Zvenyika"})
+}
+
+templ InvestmentStatistics(c context.Context, data ...any) {
+	@App(c) {
+		<div class="d-flex flex-wrap">
+			@dashboard.SideBar()
+			<div class="dashboard-wrapper">
+				@dashboard.Navbar(data[0].(*types.User))
+				<div class=" dashboard-container ">
+					<div class="dashboard-inner">
+						<div class="mb-4">
+							<p>Investment</p>
+							<h3>All Investment</h3>
+							<p>Here you can find your active and closed investment and their start date, next return date, total return and more.</p>
+						</div>
+						<div class="row gy-4">
+							<div class="col-md-5">
+								<div class="card h-100">
+									<div class="card-body">
+										<div class="d-flex flex-wrap justify-content-between align-items-center">
+											<div>
+												<p class="mb-2 fw-bold">Total Invest</p>
+												<h4 class="text--base"><sup class="top-0 fw-light me-1">$</sup>0.00</h4>
+											</div>
+											<div>
+												<p class="mb-2 fw-bold">Profit Wallet</p>
+												<h4 class="text--base"><sup class="top-0 fw-light me-1">$</sup>0.00</h4>
+											</div>
+										</div>
+										<div class="d-flex flex-wrap justify-content-between mt-3 mt-sm-4 gap-2">
+											<a href="https://prestigewealthinvest.com/plan" class="btn btn--sm btn--base">Invest Now <i class="las la-arrow-right fs--12px ms-1"></i></a>
+											<a href="../kyc-form.html" class="btn btn--sm btn--secondary">Withdraw Now <i class="las la-arrow-right fs--12px ms-1"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-7">
+								<div class="card h-100">
+									<div class="card-body">
+										<h3 class="text-center">No Investment Found Yet</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="mt-4">
+							<div class="d-flex justify-content-between">
+								<h5 class="title mb-3">Active Investments <span class="count text-base">(0)</span></h5>
+								<a href="log.html" class="link-color">View All <i class="las la-arrow-right"></i></a>
+							</div>
+							<div class="plan-list d-flex flex-wrap flex-xxl-column gap-3 gap-xxl-0">
+								<div class="accordion-body text-center bg-white p-4">
+									<h4 class="text--muted"><i class="far fa-frown"></i> Data not found</h4>
+								</div>
+							</div>
+							<div class="modal fade" id="capitalModal">
+								<div class="modal-dialog modal-dialog-centered modal-content-bg">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">Manage Invest Capital</h5>
+											<button type="button" class="close" data-bs-dismiss="modal">
+												<i class="las la-times"></i>
+											</button>
+										</div>
+										<form action="https://prestigewealthinvest.com/user/invest/capital/manage" method="post">
+											<input type="hidden" name="_token" value="NKTglVxyknUUeRQm9u6fvLbxEFJvFPrMMpSD2fCH" autocomplete="off"/> <input type="hidden" name="invest_id"/>
+											<div class="modal-body">
+												<div class="form-group">
+													<label>Investment Capital</label>
+													<select name="capital" class="form-control form--control form-select select2" data-minimum-results-for-search="-1">
+														<option value="reinvest">Reinvest</option>
+														<option value="capital_back">Capital Back</option>
+													</select>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="submit" class="btn btn--base w-100">Submit</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}

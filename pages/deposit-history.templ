@@ -1,0 +1,66 @@
+package pages
+
+import (
+	"context"
+	"github.com/labstack/echo/v4"
+	"github.com/thedivinez/go-libs/gothex"
+	"github.com/thedivinez/pocketvault.ai/components/dashboard"
+	"github.com/thedivinez/pocketvault.ai/types"
+)
+
+func HandleDepositHistory(c echo.Context) error {
+	// if session, authenticated := router.GetAuthSession(c); authenticated {
+	// 	var user types.User
+	// 	json.Unmarshal(session.Values["user"].([]byte), &user)
+	// 	return gothex.Render(c, pages.Home, user)
+	// }
+	// return c.Redirect(http.StatusPermanentRedirect, "/signin")
+	return gothex.Render(c, DepositHistory, &types.User{Name: "Divine Zvenyika"})
+}
+
+templ DepositHistory(c context.Context, data ...any) {
+	@App(c) {
+		<div class="d-flex flex-wrap">
+			@dashboard.SideBar()
+			<div class="dashboard-wrapper">
+				@dashboard.Navbar(data[0].(*types.User))
+				<div class=" dashboard-container ">
+					<div class="dashboard-inner">
+						<div class="mb-4">
+							<div class="d-flex justify-content-between">
+								<h3 class="mb-2">Deposit History</h3>
+								<span>
+									<a href="/deposit" class="btn btn--secondary btn--smd">Deposit Now <i class="las la-long-arrow-alt-right"></i></a>
+								</span>
+							</div>
+						</div>
+						<div class="accordion table--acordion" id="transactionAccordion">
+							<div class="accordion-body text-center bg-white">
+								<h4 class="text--muted"><i class="far fa-frown"></i> Data not found</h4>
+							</div>
+						</div>
+					</div>
+					<div id="detailModal" class="modal" tabindex="-1" role="dialog">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Details</h5>
+									<span type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+										<i class="las la-times"></i>
+									</span>
+								</div>
+								<div class="modal-body">
+									<ul class="list-group userData mb-2"></ul>
+									<div class="feedback"></div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-dark btn--sm" data-bs-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}

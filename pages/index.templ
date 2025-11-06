@@ -1,0 +1,231 @@
+package pages
+
+import (
+	"context"
+	"github.com/labstack/echo/v4"
+	"github.com/thedivinez/go-libs/gothex"
+	"github.com/thedivinez/pocketvault.ai/components/dashboard"
+	"github.com/thedivinez/pocketvault.ai/types"
+)
+
+func HandleIndex(c echo.Context) error {
+	// if session, authenticated := router.GetAuthSession(c); authenticated {
+	// 	var user types.User
+	// 	json.Unmarshal(session.Values["user"].([]byte), &user)
+	// 	return gothex.Render(c, pages.Home, user)
+	// }
+	// return c.Redirect(http.StatusPermanentRedirect, "/signin")
+	return gothex.Render(c, Index, &types.User{Name: "Divine Zvenyika"})
+}
+
+templ Index(c context.Context, data ...any) {
+	@App(c) {
+		<div class="d-flex flex-wrap">
+			@dashboard.SideBar()
+			<div class="dashboard-wrapper">
+				@dashboard.Navbar(data[0].(*types.User))
+				<div class="dashboard-container">
+					<div class="dashboard-inner">
+						<div class="notice"></div>
+						<div class="border border--info alert" role="alert">
+							<div class="d-flex align-items-center text--info alert__icon">
+								<i class="fas fa-exclamation-circle"></i>
+							</div>
+							<p class="alert__message">
+								<span class="fw-bold">KYC Verification Required</span>
+								<br/>
+								<small>
+									Please submit the required KYC information to verify
+									yourself. Otherwise, you couldn&#039;t make any withdrawal
+									requests to the system.
+									<a href="/kyc-form">Click Here to Submit Documents</a>
+								</small>
+							</p>
+						</div>
+						<div class="border border--warning alert" role="alert">
+							<div class="d-flex align-items-center text--warning alert__icon">
+								<i class="fas fa-user-lock"></i>
+							</div>
+							<p class="alert__message">
+								<span class="fw-bold">2FA Authentication</span>
+								<br/>
+								<small>
+									<i>
+										To keep safe your account, Please enable
+										<a href="/two-factor" class="link-color">2FA</a>
+										security.
+									</i>
+									It will make secure your account and balance.
+								</small>
+							</p>
+						</div>
+						<div class="mt-4 row g-3">
+							<div class="col-lg-4">
+								<div class="dashboard-widget">
+									<div class="d-flex justify-content-between">
+										<h5 class="text-secondary">Investment Amount</h5>
+									</div>
+									<h3 class="my-4 text--secondary">$0.00 USD</h3>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="dashboard-widget">
+									<div class="d-flex justify-content-between">
+										<h5 class="text-secondary">Balance Transferred</h5>
+									</div>
+									<h3 class="my-4 text--danger">$0.00 USD</h3>
+									<div class="widget-lists">
+										<div class="row">
+											<div class="col-6">
+												<p class="fw-bold">From Deposit</p>
+												<span class="text--danger">$0.00 USD</span>
+											</div>
+											<div class="col-6">
+												<p class="fw-bold">From Profit</p>
+												<span class="text--danger">$0.00 USD</span>
+											</div>
+										</div>
+										<hr/>
+										<p>
+											<small>
+												<i>
+													You've transferred $0.00 USD from deposit wallet and
+													$0.00 USD from Profit wallet
+												</i>
+											</small>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="dashboard-widget">
+									<div class="d-flex justify-content-between">
+										<h5 class="text-secondary">Balance Received</h5>
+									</div>
+									<h3 class="my-4 text--success">$0.00 USD</h3>
+								</div>
+							</div>
+						</div>
+						<div class="mt-4 row g-3">
+							<div class="col-lg-4">
+								<div class="dashboard-widget">
+									<div class="d-flex justify-content-between">
+										<h5 class="text-secondary">Successful Deposits</h5>
+									</div>
+									<h3 class="my-4 text--secondary">$0.00 USD</h3>
+									<div class="widget-lists">
+										<div class="row">
+											<div class="col-4">
+												<p class="fw-bold">Submitted</p>
+												<span>$0.00 USD</span>
+											</div>
+											<div class="col-4">
+												<p class="fw-bold">Pending</p>
+												<span>$0.00 USD</span>
+											</div>
+											<div class="col-4">
+												<p class="fw-bold">Rejected</p>
+												<span>$0.00 USD</span>
+											</div>
+										</div>
+										<hr/>
+										<p>
+											<small>
+												<i>
+													You've requested to deposit $3,878.00 USD. Where
+													$3,878.00 USD is just initiated but not submitted.
+												</i>
+											</small>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="dashboard-widget">
+									<div class="d-flex justify-content-between">
+										<h5 class="text-secondary">Successful Withdrawals</h5>
+									</div>
+									<h3 class="my-4 text--secondary">$0.00 USD</h3>
+									<div class="widget-lists">
+										<div class="row">
+											<div class="col-4">
+												<p class="fw-bold">Submitted</p>
+												<span>$0.00 USD</span>
+											</div>
+											<div class="col-4">
+												<p class="fw-bold">Pending</p>
+												<span>$0.00 USD</span>
+											</div>
+											<div class="col-4">
+												<p class="fw-bold">Rejected</p>
+												<span>$0.00 USD</span>
+											</div>
+										</div>
+										<hr/>
+										<p>
+											<small>
+												<i>
+													You've requested to withdraw $0.00 USD. Where $0.00
+													USD is just initiated but not submitted.
+												</i>
+											</small>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="dashboard-widget">
+									<div class="d-flex justify-content-between">
+										<h5 class="text-secondary">Total Investments</h5>
+									</div>
+									<h3 class="my-4 text--secondary">$0.00 USD</h3>
+									<div class="widget-lists">
+										<div class="row">
+											<div class="col-4">
+												<p class="fw-bold">Completed</p>
+												<span>$0.00 USD</span>
+											</div>
+											<div class="col-4">
+												<p class="fw-bold">Running</p>
+												<span>$0.00 USD</span>
+											</div>
+											<div class="col-4">
+												<p class="fw-bold">Profits</p>
+												<span>$0.00 USD</span>
+											</div>
+										</div>
+										<hr/>
+										<p>
+											<small>
+												<i>
+													You've invested $0.00 USD from the deposit wallet and
+													$0.00 USD from the profit wallet
+												</i>
+											</small>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="mt-4 mb-4 card">
+							<div class="card-body">
+								<div class="mb-2">
+									<h5 class="title">Latest ROI Statistics</h5>
+									<p>
+										<small>
+											<i>
+												Here is last 30 days statistics of your ROI (Return on
+												Investment)
+											</i>
+										</small>
+									</p>
+								</div>
+								<div id="chart"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}

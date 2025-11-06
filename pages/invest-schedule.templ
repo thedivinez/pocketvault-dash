@@ -1,0 +1,113 @@
+package pages
+
+import (
+	"context"
+	"github.com/labstack/echo/v4"
+	"github.com/thedivinez/go-libs/gothex"
+	"github.com/thedivinez/pocketvault.ai/components/dashboard"
+	"github.com/thedivinez/pocketvault.ai/types"
+)
+
+func HandleInvestmentSchedule(c echo.Context) error {
+	// if session, authenticated := router.GetAuthSession(c); authenticated {
+	// 	var user types.User
+	// 	json.Unmarshal(session.Values["user"].([]byte), &user)
+	// 	return gothex.Render(c, pages.Home, user)
+	// }
+	// return c.Redirect(http.StatusPermanentRedirect, "/signin")
+	return gothex.Render(c, InvestmentSchedule, &types.User{Name: "Divine Zvenyika"})
+}
+
+templ InvestmentSchedule(c context.Context, data ...any) {
+	@App(c) {
+		<div class="d-flex flex-wrap">
+			@dashboard.SideBar()
+			<div class="dashboard-wrapper">
+				@dashboard.Navbar(data[0].(*types.User))
+				<div class=" dashboard-container ">
+					<div class="dashboard-inner">
+						<div class="mb-4">
+							<p>Schedule Investment</p>
+							<h3>My Schedule Investment</h3>
+							<p>Easily manage your scheduled investments by accessing detailed information such as upcoming investment dates, remaining investment times, and the option to enable or disable each schedule.</p>
+						</div>
+						<div class="mt-4">
+							<div class="plan-list d-flex flex-wrap flex-xxl-column gap-3 gap-xxl-0">
+								<div class="accordion-body text-center bg-white p-4">
+									<h4 class="text--muted"><i class="far fa-frown"></i> Data not found</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal fade" id="detailsModal">
+						<div class="modal-dialog modal-dialog-centered modal-content-bg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">
+										Schedule Invest Details                    
+									</h5>
+									<button type="button" class="close" data-bs-dismiss="modal">
+										<i class="las la-times"></i>
+									</button>
+								</div>
+								<div class="modal-body">
+									<ul class="list-group">
+										<li class="list-group-item d-flex justify-content-between">
+											Plan Name                            <span class="planName"></span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between">
+											Invest Amount                            <span class="investAmount"></span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between">
+											Interest                            <span class="interestAmount"></span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between compoundInterestBlock">
+											Compound Interest                            <span class="compoundInterest"></span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between">
+											Schedule Times                            <span class="scheduleTimes"></span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between">
+											Remaining Schedule Times                            <span class="remScheduleTimes"></span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between">
+											Interval                            <span class="intervalHours"></span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between">
+											Next Invest                            <span class="nextInvest"></span>
+										</li>
+									</ul>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn--danger btn-md" data-bs-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="confirmationModal" class="modal fade" tabindex="-1" role="dialog">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Confirmation Alert!</h5>
+									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+										<i class="las la-times"></i>
+									</button>
+								</div>
+								<form method="POST">
+									<input type="hidden" name="_token" value="NKTglVxyknUUeRQm9u6fvLbxEFJvFPrMMpSD2fCH" autocomplete="off"/>
+									<div class="modal-body">
+										<p class="question"></p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn--dark" data-bs-dismiss="modal">No</button>
+										<button type="submit" class="btn btn--primary">Yes</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}

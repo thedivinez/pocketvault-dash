@@ -1,0 +1,81 @@
+package pages
+
+import (
+	"context"
+	"github.com/labstack/echo/v4"
+	"github.com/thedivinez/go-libs/gothex"
+	"github.com/thedivinez/pocketvault.ai/components/dashboard"
+	"github.com/thedivinez/pocketvault.ai/types"
+)
+
+func HandleTransferBalance(c echo.Context) error {
+	// if session, authenticated := router.GetAuthSession(c); authenticated {
+	// 	var user types.User
+	// 	json.Unmarshal(session.Values["user"].([]byte), &user)
+	// 	return gothex.Render(c, pages.Home, user)
+	// }
+	return gothex.Render(c, TransferBalance, &types.User{Name: "Divine Zvenyika"})
+}
+
+templ TransferBalance(c context.Context, data ...any) {
+	@App(c) {
+		<div class="d-flex flex-wrap">
+			@dashboard.SideBar()
+			<div class="dashboard-wrapper">
+				@dashboard.Navbar(data[0].(*types.User))
+				<div class=" dashboard-container ">
+					<div class="dashboard-inner">
+						<div class="row justify-content-center">
+							<div class="col-md-8">
+								<div class="mb-4">
+									<h3 class="mb-2">Transfer Balance</h3>
+									<p>You can transfer the balance to another user from both of your wallets. The transferred amount will be added to the deposit wallet of the targeted user.</p>
+								</div>
+								<div class="card custom--card">
+									<form method="post" enctype="multipart/form-data">
+										<input type="hidden" name="_token" value="NKTglVxyknUUeRQm9u6fvLbxEFJvFPrMMpSD2fCH" autocomplete="off"/>
+										<div class="card-body">
+											<div class="form-group">
+												<label>Wallet</label>
+												<select class="form-control form--control form-select select2" data-minimum-results-for-search="-1" name="wallet">
+													<option value="">Select a wallet</option>
+													<!--<option value="deposit_wallet">Deposit Wallet - $0.00 USD</option>-->
+													<option value="interest_wallet">Proftit Wallet - $0.00 USD</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label>Username</label>
+												<input type="text" name="username" class="form-control form--control findUser" required/>
+												<code class="error-message"></code>
+											</div>
+											<div class="form-group">
+												<label>Amount <small class="text--success">(Charge: $0.00 USD + 0%)</small></label>
+												<div class="input-group">
+													<input type="number" step="any" autocomplete="off" name="amount" class="form-control form--control" required/>
+													<span class="input-group-text">USD</span>
+												</div>
+												<small><code class="calculation"></code></small>
+											</div>
+											<div wire:snapshot="{&quot;data&quot;:{&quot;flag&quot;:0},&quot;memo&quot;:{&quot;id&quot;:&quot;aXcpDiAGfKSiF3xIWyG7&quot;,&quot;name&quot;:&quot;otp&quot;,&quot;path&quot;:&quot;user\/transfer-balance&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;en&quot;},&quot;checksum&quot;:&quot;e185e8b8d1f4cf6cb41684439efe27f82ec54f7e168f0f85597ee20fba26db9b&quot;}" wire:effects="[]" wire:id="aXcpDiAGfKSiF3xIWyG7">
+												<div class="form-group" style="position:relative">
+													<label>Enter OTP sent to email</label>
+													<input type="text" name="otp" class="form-control form--control" required/>
+													<div style="position:absolute;right:0;top:33px">
+														<input type="button" value="SEND OTP" class="btn btn--base w-10" wire:click="send"/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group mt-3">
+												<button type="submit" class="btn btn--base w-100" id="transferBtn">Submit</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}

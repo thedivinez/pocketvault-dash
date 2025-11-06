@@ -1,0 +1,98 @@
+package pages
+
+import (
+	"context"
+	"github.com/labstack/echo/v4"
+	"github.com/thedivinez/go-libs/gothex"
+	"net/http"
+)
+
+func HandleSignIn(c echo.Context) error {
+	if session, authenticated := gothex.GetAuthSession(c); authenticated {
+		return c.Redirect(http.StatusPermanentRedirect, session.Options.Path)
+	}
+	return gothex.RenderWithTitle(c, "Sign In", SignIn)
+}
+
+templ SignIn(c context.Context, options ...any) {
+	@App(c) {
+		<section class="position-relative account-section">
+			<div class="container">
+				<div class="justify-content-center row">
+					<div class="col-xl-6 col-lg-7 col-md-8">
+						<a
+							href="https://prestigewealthinvest.com"
+							class="d-block mb-3 mb-sm-4 text-center auth-page-logo"
+						>
+							<img
+								src="/images/logo_dark.png"
+								alt="logo"
+							/>
+						</a>
+						<form
+							action="https://prestigewealthinvest.com/user/login"
+							method="POST"
+							class="verify-gcaptcha account-form"
+						>
+							<input
+								type="hidden"
+								name="_token"
+								value="NKTglVxyknUUeRQm9u6fvLbxEFJvFPrMMpSD2fCH"
+								autocomplete="off"
+							/>
+							<div class="mb-4">
+								<h4 class="mb-2">Login to your account</h4>
+								<p>You can sign in to your account using email or username</p>
+								<div class="my-2"></div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<label>Username or Email</label>
+										<input type="text" name="username" class="h-45 form-control form--control"/>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="form-group" style="position: relative">
+										<label>Password</label>
+										<input
+											type="password"
+											name="password"
+											i="password"
+											class="h-45 form-control form--control"
+										/>
+										<div style="position: absolute; right: 5px; top: 45px">
+											<input type="checkbox" onclick="togglePasswordVisibility()"/>
+											Show Password
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="d-flex flex-wrap justify-content-between gap-2">
+										<div class="form-group custom--checkbox">
+											<input type="checkbox" id="remember" name="remember" class="form-check-input"/>
+											<label for="remember">Keep me Logged in</label>
+										</div>
+										<a href="/password-reset" class="text--base fw-bold">Forgot Password?</a>
+									</div>
+								</div>
+								<div class="col-12"></div>
+								<div class="col-12">
+									<button type="submit" class="w-100 btn btn--base">
+										Login Account
+									</button>
+								</div>
+								<div class="mt-4 col-12">
+									<p class="text-center">
+										Don't have any account?
+										<a href="/signup" class="text--base fw-bold">Create Account</a>
+									</p>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	}
+}

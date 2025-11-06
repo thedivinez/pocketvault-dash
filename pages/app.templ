@@ -1,0 +1,318 @@
+package pages
+
+import (
+	"context"
+	"fmt"
+	"github.com/thedivinez/go-libs/gothex"
+)
+
+templ App(c context.Context) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>{ fmt.Sprintf("%v",c.Value(gothex.ContextKey{Key: "X-Title"})) }</title>
+			<meta name="title" content="Pocket Vault - Dashboard"/>
+			<meta
+				name="description"
+				content="At Pocket Vault, we empower traders with a comprehensive suite of advanced investment tools and personalized leverage options tailored to suit your unique investment strategy. Our platform is designed to enhance your investing experience, allowing you to make informed decisions and maximize your potential for success."
+			/>
+			<meta
+				name="keywords"
+				content="investment,ai,trading,auto,bot trading,ai trading"
+			/>
+			<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon"/>
+			<link rel="apple-touch-icon" href="/images/logo.png"/>
+			<meta name="mobile-web-app-capable" content="yes"/>
+			<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+			<meta
+				name="apple-mobile-web-app-title"
+				content="Pocket Vault - Dashboard"
+			/>
+			<meta itemprop="name" content="Pocket Vault - Dashboard"/>
+			<meta
+				itemprop="description"
+				content="At Pocket Vault, we empower traders with a comprehensive suite of advanced investment tools and personalized leverage options tailored to suit your unique investment strategy. Our platform is designed to enhance your investing experience, allowing you to make informed decisions and maximize your potential for success."
+			/>
+			<meta property="og:type" content="website"/>
+			<meta property="og:title" content="Pocket Vault"/>
+			<meta
+				property="og:description"
+				content="At Pocket Vault, we empower you to build long-term financial success through carefully curated investment opportunities."
+			/>
+			<meta property="og:image" content="images/681219d26163e1746016722.jpg"/>
+			<meta property="og:image:type" content="image/jpg"/>
+			<meta property="og:image:width" content="1180"/>
+			<meta property="og:image:height" content="600"/>
+			<meta property="og:url" content="https://prestigewealthinvest.com/user"/>
+			<meta name="twitter:card" content="summary_large_image"/>
+			<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+			<link href="/css/all.min.css" rel="stylesheet"/>
+			<link rel="stylesheet" href="/css/line-awesome.min.css"/>
+			<link rel="stylesheet" href="/css/select2.min.css"/>
+			<link rel="stylesheet" href="/css/animate.css"/>
+			<!-- Plugin Link -->
+			<link rel="stylesheet" href="/css/slick.css"/>
+			<link rel="stylesheet" href="/css/magnific-popup.css"/>
+			<link rel="stylesheet" href="/css/apexcharts.css"/>
+			<!-- Main css -->
+			<link rel="stylesheet" href="/css/main.css"/>
+			<link rel="stylesheet" href="/css/custom.css"/>
+		</head>
+		<body id="app">
+			{ children... }
+			<script src="/js/jquery-3.7.1.min.js"></script>
+			<script src="/js/bootstrap.bundle.min.js"></script>
+			<script src="/js/select2.min.js"></script>
+			<!-- Pluglin Link -->
+			<script src="/js/slick.min.js"></script>
+			<script src="/js/magnific-popup.min.js"></script>
+			<script src="/js/apexcharts.min.js"></script>
+			<!-- Main js -->
+			<script src="/js/main.js"></script>
+			<link href="/css/iziToast.min.css" rel="stylesheet"/>
+			<link href="/css/iziToast_custom.css" rel="stylesheet"/>
+			<script src="/js/iziToast.min.js"></script>
+			<script>
+      "use strict";
+      const colors = {
+        success: "#28c76f",
+        error: "#eb2222",
+        warning: "#ff9f43",
+        info: "#1e9ff2",
+      };
+
+      const icons = {
+        success: "fas fa-check-circle",
+        error: "fas fa-times-circle",
+        warning: "fas fa-exclamation-triangle",
+        info: "fas fa-exclamation-circle",
+      };
+
+      const notifications = [];
+      const errors = [];
+
+      const triggerToaster = (status, message) => {
+        iziToast[status]({
+          title: status.charAt(0).toUpperCase() + status.slice(1),
+          message: message,
+          position: "topRight",
+          backgroundColor: "#fff",
+          icon: icons[status],
+          iconColor: colors[status],
+          progressBarColor: colors[status],
+          titleSize: "1rem",
+          messageSize: "1rem",
+          titleColor: "#474747",
+          messageColor: "#a2a2a2",
+          transitionIn: "obunceInLeft",
+        });
+      };
+
+      if (notifications.length) {
+        notifications.forEach((element) => {
+          triggerToaster(element[0], element[1]);
+        });
+      }
+
+      if (errors.length) {
+        errors.forEach((error) => {
+          triggerToaster("error", error);
+        });
+      }
+
+      function notify(status, message) {
+        if (typeof message == "string") {
+          triggerToaster(status, message);
+        } else {
+          $.each(message, (i, val) => triggerToaster(status, val));
+        }
+      }
+    </script>
+			<script src="/js/apexcharts.min.js"></script>
+			<script>
+      // apex-line chart
+      var options = {
+        chart: {
+          height: 350,
+          type: "area",
+          toolbar: {
+            show: false,
+          },
+          dropShadow: {
+            enabled: true,
+            enabledSeries: [0],
+            top: -2,
+            left: 0,
+            blur: 10,
+            opacity: 0.08,
+          },
+          animations: {
+            enabled: true,
+            easing: "linear",
+            dynamicAnimation: {
+              speed: 1000,
+            },
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        series: [
+          {
+            name: "Price",
+            data: [],
+          },
+        ],
+        fill: {
+          type: "gradient",
+          colors: ["#4c7de6", "#4c7de6", "#4c7de6"],
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.6,
+            opacityTo: 0.9,
+            stops: [0, 90, 100],
+          },
+        },
+        xaxis: {
+          title: "Value",
+          categories: [],
+        },
+        grid: {
+          padding: {
+            left: 5,
+            right: 5,
+          },
+          xaxis: {
+            lines: {
+              show: false,
+            },
+          },
+          yaxis: {
+            lines: {
+              show: false,
+            },
+          },
+        },
+      };
+
+      var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+      chart.render();
+
+      var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    </script>
+			<script>
+      var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    </script>
+			<script>
+      $(".select2").select2();
+
+      Array.from(document.querySelectorAll("table")).forEach((table) => {
+        let heading = table.querySelectorAll("thead tr th");
+        Array.from(table.querySelectorAll("tbody tr")).forEach((row) => {
+          Array.from(row.querySelectorAll("td")).forEach((colum, i) => {
+            colum.setAttribute("data-label", heading[i].innerText);
+          });
+        });
+      });
+
+      $.each($("input, select, textarea"), function (i, element) {
+        var elementType = $(element);
+        if (elementType.attr("type") != "checkbox") {
+          if (element.hasAttribute("required")) {
+            $(element)
+              .closest(".form-group")
+              .find("label")
+              .addClass("required");
+          }
+        }
+      });
+
+      var inputElements = $(
+        "[type=text],[type=password],[type=email],[type=number],select,textarea"
+      );
+      $.each(inputElements, function (index, element) {
+        element = $(element);
+        element
+          .closest(".form-group")
+          .find("label")
+          .attr("for", element.attr("name"));
+        element.attr("id", element.attr("name"));
+      });
+
+      // Enhanced Form Submission Protection - Prevent Double Submissions
+      let submittingForms = new Set();
+
+      // Apply to all forms automatically
+      $("form")
+        .not(".allow-multiple-submit")
+        .on("submit", function (e) {
+          let form = $(this);
+          let formId =
+            form.attr("id") || form.attr("action") || "form-" + Date.now();
+
+          // Check if this form is already being submitted
+          if (submittingForms.has(formId)) {
+            e.preventDefault();
+            return false;
+          }
+
+          // Mark form as submitting
+          submittingForms.add(formId);
+
+          // Disable all submit buttons in this form
+          form
+            .find('button[type="submit"], input[type="submit"]')
+            .each(function () {
+              let btn = $(this);
+              btn.data("original-text", btn.html());
+              btn.prop("disabled", true);
+              btn.html('<i class="las la-spinner la-spin"></i> Processing...');
+            });
+
+          // Re-enable after 5 seconds (in case of error)
+          setTimeout(function () {
+            submittingForms.delete(formId);
+            form
+              .find('button[type="submit"], input[type="submit"]')
+              .each(function () {
+                let btn = $(this);
+                btn.prop("disabled", false);
+                btn.html(btn.data("original-text") || "Submit");
+              });
+          }, 5000);
+        });
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById("password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+
+        function togglePasswordVisibilityx() {
+            const passwordInput = document.getElementById("passwordx");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+    </script>
+		</body>
+	</html>
+}

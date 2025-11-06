@@ -1,0 +1,273 @@
+package pages
+
+import (
+	"context"
+	"github.com/labstack/echo/v4"
+	"github.com/thedivinez/go-libs/gothex"
+	"github.com/thedivinez/pocketvault.ai/components/dashboard"
+	"github.com/thedivinez/pocketvault.ai/types"
+)
+
+func HandleReferrals(c echo.Context) error {
+	// if session, authenticated := router.GetAuthSession(c); authenticated {
+	// 	var user types.User
+	// 	json.Unmarshal(session.Values["user"].([]byte), &user)
+	// 	return gothex.Render(c, pages.Home, user)
+	// }
+	// return c.Redirect(http.StatusPermanentRedirect, "/signin")
+	return gothex.Render(c, Referrals, &types.User{Name: "Divine Zvenyika"})
+}
+
+templ Referrals(c context.Context, data ...any) {
+	@App(c) {
+		<div class="d-flex flex-wrap">
+			@dashboard.SideBar()
+			<div class="dashboard-wrapper">
+				@dashboard.Navbar(data[0].(*types.User))
+				<div class=" dashboard-container ">
+					<div class="dashboard-inner">
+						<div class="mb-4">
+							<h3>My Referrals</h3>
+						</div>
+						<div class="row gy-4">
+							<div class="col-md-12">
+								<div class="card mb-3">
+									<div class="card-body">
+										<h4 class="mb-1">Refer & Enjoy the Bonus</h4>
+										<p class="mb-3">
+											You'll get commission against your referral's activities. Level has been
+											decided by the <strong><i>Prestige Wealth Investment</i></strong> authority. If you
+											reach the level, you'll get commission.
+										</p>
+										<div class="copy-link">
+											<input
+												type="text"
+												class="copyURL"
+												value="https://prestigewealthinvest.com/user/register?reference=Jcombs"
+												readonly
+											/>
+											<span class="copyBoard" id="copyBoard">
+												<i class="las la-copy"></i> <strong class="copyText">Copy</strong>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<h5>Direct referrals</h5>
+									<div class="row mb-3">
+										<div class="col-md-3">
+											<div class="card">
+												<div class="card-body text-center">
+													<h6 class="m-0 h5">Total Deposit</h6>
+													<h3 class="m-0">
+														$0.00
+													</h3>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="card">
+												<div class="card-body text-center">
+													<h6 class="m-0 h5">Total Amount invested</h6>
+													<h3 class="m-0">
+														$0.00
+													</h3>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="card">
+												<div class="card-body text-center">
+													<h6 class="m-0 h5">Profit made by Referrals</h6>
+													<h3 class="m-0">
+														$0.00
+													</h3>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="card">
+												<div class="card-body text-center">
+													<h6 class="m-0 h5">You have Earned</h6>
+													<h3 class="m-0">
+														$0.00
+													</h3>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div
+										wire:snapshot="{&quot;data&quot;:{&quot;viewRef&quot;:false,&quot;refLevel&quot;:null,&quot;children&quot;:null,&quot;referrals&quot;:null,&quot;totalDeposit&quot;:0,&quot;totalAmountInPlans&quot;:0,&quot;totalProfit&quot;:0,&quot;user&quot;:null,&quot;commision&quot;:20,&quot;level&quot;:&quot;Level 1&quot;,&quot;earned&quot;:0,&quot;currentLevelUserIDs&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;paginators&quot;:[{&quot;page&quot;:1},{&quot;s&quot;:&quot;arr&quot;}]},&quot;memo&quot;:{&quot;id&quot;:&quot;QuhLjpKdTI33ZLouB3hn&quot;,&quot;name&quot;:&quot;refferal&quot;,&quot;path&quot;:&quot;user\/referrals&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;en&quot;},&quot;checksum&quot;:&quot;7c0c72f8b9980dc4cb27ef703d138ba1d133978bd8df9e96f9c2a5d130dd1c9f&quot;}"
+										wire:effects="{&quot;url&quot;:{&quot;paginators.page&quot;:{&quot;as&quot;:&quot;page&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null}}}"
+										wire:id="QuhLjpKdTI33ZLouB3hn"
+									>
+										<!--[if BLOCK]><![endif]-->
+										<div class="col-12 my-4">
+											<div>
+												<ul class="nav nav-pills nav-fill">
+													<li class="nav-item border rounded m-1">
+														<a
+															class="nav-link active"
+															aria-current="page"
+															href="#"
+															wire:click.prevent="changeLevel('Level 1')"
+														>Level 1</a>
+													</li>
+													<li class="nav-item border rounded m-1">
+														<a
+															class="nav-link"
+															href="#"
+															wire:click.prevent="changeLevel('Level 2')"
+														>Level 2</a>
+													</li>
+													<li class="nav-item border rounded m-1">
+														<a
+															class="nav-link"
+															href="#"
+															wire:click.prevent="changeLevel('Level 3')"
+														>Level 3</a>
+													</li>
+													<li class="nav-item border rounded m-1">
+														<a
+															class="nav-link"
+															href="#"
+															wire:click.prevent="changeLevel('Level 4')"
+														>Level 4</a>
+													</li>
+													<li class="nav-item border rounded m-1">
+														<a
+															class="nav-link"
+															href="#"
+															wire:click.prevent="changeLevel('Level 5')"
+														>Level 5</a>
+													</li>
+													<li class="nav-item border rounded m-1">
+														<a
+															class="nav-link"
+															href="#"
+															wire:click.prevent="changeLevel('Level 6')"
+														>Level 6</a>
+													</li>
+													<li class="nav-item border rounded m-1">
+														<a
+															class="nav-link"
+															href="#"
+															wire:click.prevent="changeLevel('Level 7')"
+														>Level 7</a>
+													</li>
+													<li class="nav-item border rounded m-1">
+														<a
+															class="nav-link"
+															href="#"
+															wire:click.prevent="changeLevel('Level 8')"
+														>Level 8</a>
+													</li>
+													<li class="nav-item border rounded m-1">
+														<a
+															class="nav-link"
+															href="#"
+															wire:click.prevent="changeLevel('Level 9')"
+														>Level 9</a>
+													</li>
+													<li class="nav-item border rounded m-1">
+														<a
+															class="nav-link"
+															href="#"
+															wire:click.prevent="changeLevel('Level 10')"
+														>Level 10</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="col-12">
+											<h5>Level 1 referrals</h5>
+											<div class="row mb-3">
+												<div class="col-md-3">
+													<div class="card">
+														<div class="card-body text-center">
+															<h6 class="m-0 h5">Total Deposit</h6>
+															<h3 class="m-0">
+																$0.00
+															</h3>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="card">
+														<div class="card-body text-center">
+															<h6 class="m-0 h5">Total Amount invested</h6>
+															<h3 class="m-0">
+																$0.00
+															</h3>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="card">
+														<div class="card-body text-center">
+															<h6 class="m-0 h5">Profit made by Referrals</h6>
+															<h3 class="m-0">
+																$0.00
+															</h3>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="card">
+														<div class="card-body text-center">
+															<h6 class="m-0 h5">You have Earned</h6>
+															<h3 class="m-0">
+																$0.00
+															</h3>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="table-responsive">
+												<table class="table">
+													<thead>
+														<tr>
+															<th>Client name</th>
+															<th>Ref. level</th>
+															<th>Total Deposit</th>
+															<th>Total Amount invested</th>
+															<th>Profit Made</th>
+															<th>Parent</th>
+															<th>Client status</th>
+															<th>Date registered</th>
+															<th></th>
+														</tr>
+													</thead>
+													<tbody>
+														<!--[if BLOCK]><![endif]-->
+														<tr>
+															<td colspan="9" class="text-center py-3">
+																<i
+																	class="bi bi-database-fill-exclamation"
+																	style="font-size: 50px"
+																></i>
+																<p>No Level 1 referrals yet</p>
+															</td>
+														</tr>
+														<!--[if ENDBLOCK]><![endif]-->
+													</tbody>
+												</table>
+											</div>
+											<div>
+												<!--[if BLOCK]><![endif]-->
+												<!--[if ENDBLOCK]><![endif]-->
+											</div>
+										</div>
+										<!--[if ENDBLOCK]><![endif]-->
+										<!--[if BLOCK]><![endif]-->
+										<!--[if ENDBLOCK]><![endif]-->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}

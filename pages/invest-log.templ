@@ -1,0 +1,73 @@
+package pages
+
+import (
+	"context"
+	"github.com/labstack/echo/v4"
+	"github.com/thedivinez/go-libs/gothex"
+	"github.com/thedivinez/pocketvault.ai/components/dashboard"
+	"github.com/thedivinez/pocketvault.ai/types"
+)
+
+func HandleInvestmentLog(c echo.Context) error {
+	// if session, authenticated := router.GetAuthSession(c); authenticated {
+	// 	var user types.User
+	// 	json.Unmarshal(session.Values["user"].([]byte), &user)
+	// 	return gothex.Render(c, pages.Home, user)
+	// }
+	// return c.Redirect(http.StatusPermanentRedirect, "/signin")
+	return gothex.Render(c, InvestmentLog, &types.User{Name: "Divine Zvenyika"})
+}
+
+templ InvestmentLog(c context.Context, data ...any) {
+	@App(c) {
+		<div class="d-flex flex-wrap">
+			@dashboard.SideBar()
+			<div class="dashboard-wrapper">
+				@dashboard.Navbar(data[0].(*types.User))
+				<div class=" dashboard-container ">
+					<div class="dashboard-inner">
+						<div class="mb-4">
+							<p>Investment</p>
+							<h3>My Investment Statistics</h3>
+							<p>Here you can find your active and closed investment and their start date, next return date, total return and more.</p>
+						</div>
+						<div class="mt-4">
+							<div class="plan-list d-flex flex-wrap flex-xxl-column gap-3 gap-xxl-0">
+								<div class="accordion-body text-center bg-white p-4">
+									<h4 class="text--muted"><i class="far fa-frown"></i> Data not found</h4>
+								</div>
+							</div>
+							<div class="modal fade" id="capitalModal">
+								<div class="modal-dialog modal-dialog-centered modal-content-bg">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">Manage Invest Capital</h5>
+											<button type="button" class="close" data-bs-dismiss="modal">
+												<i class="las la-times"></i>
+											</button>
+										</div>
+										<form action="https://prestigewealthinvest.com/user/invest/capital/manage" method="post">
+											<input type="hidden" name="_token" value="NKTglVxyknUUeRQm9u6fvLbxEFJvFPrMMpSD2fCH" autocomplete="off"/> <input type="hidden" name="invest_id"/>
+											<div class="modal-body">
+												<div class="form-group">
+													<label>Investment Capital</label>
+													<select name="capital" class="form-control form--control form-select select2" data-minimum-results-for-search="-1">
+														<option value="reinvest">Reinvest</option>
+														<option value="capital_back">Capital Back</option>
+													</select>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="submit" class="btn btn--base w-100">Submit</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}
